@@ -19,9 +19,10 @@ export const PROBLEMS: Record<Problem, { name: string; issue: string }> = {
   },
 };
 
-// A one-day move is not a day/month swap, whatever the tenant: the desk read these apart, so they get their own problem.
-export function problemOf(r: Report, t: Tenant | undefined, oneDayMove: readonly string[]): Problem | 'unplaced' {
-  if (oneDayMove.includes(r.id)) return 'shift';
+// Counted the desk's way (CauseTable): every report under the cause its tenant and channel point to.
+// A one-day move is a problem of its own, but the desk files those reports by tenant too, so they are
+// counted where they are filed and again, on their own, under `shift`.
+export function problemOf(r: Report, t: Tenant | undefined): Problem | 'unplaced' {
   return causeOf(r, t) ?? 'unplaced';
 }
 
@@ -39,13 +40,15 @@ export function splitTicket(
   ticket: number,
   tenantOf: (r: Report) => Tenant | undefined,
   oneDayMove: readonly string[],
-): { rows: number; merged: Report[]; groups: ProblemGroup[] } {
+): { rows: number; merged: Report[]; groups: ProblemGroup[]; alsoParser: number } {
   const merged = uniqueById(all).filter((r) => r.mergedInto === ticket);
   const by = new Map<ProblemGroup['problem'], Report[]>();
   for (const r of merged) {
-    const p = problemOf(r, tenantOf(r), oneDayMove);
+    const p = problemOf(r, tenantOf(r));
     by.set(p, [...(by.get(p) ?? []), r]);
   }
+  const moved = merged.filter((r) => oneDayMove.includes(r.id));
+  if (moved.length) by.set('shift', moved);
   const groups = [...by.entries()]
     .map(([problem, rs]) => {
       const days = rs.map((r) => r.receivedAt.slice(0, 10)).sort();
@@ -59,5 +62,6 @@ export function splitTicket(
       };
     })
     .sort((a, b) => b.reports.length - a.reports.length);
-  return { rows: all.filter((r) => r.mergedInto === ticket).length, merged, groups };
+  const alsoParser = moved.filter((r) => problemOf(r, tenantOf(r)) === 'parser').length;
+  return { rows: all.filter((r) => r.mergedInto === ticket).length, merged, groups, alsoParser };
 }

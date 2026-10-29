@@ -44,7 +44,9 @@
 </table>
 
 <p class="note">
-  Counted once per report id: the export has {split.rows} rows for #{ticket}, {split.rows - split.merged.length} of them
+  Counted the desk's way, where each report is filed: the <code>parser</code> count includes the
+  {split.alsoParser} one-day moves, which the desk files under <code>parser</code> by tenant. They are counted again
+  under <code>shift</code>, the problem they show. Counted once per report id: the export has {split.rows} rows for #{ticket}, {split.rows - split.merged.length} of them
   repeated from overlapping export pages. Intake tags are not used; they are a guess from the reporter's browser.
 </p>
 

@@ -35,8 +35,8 @@ The queued parser fix closes only the first problem. The other two keep coming i
   tenants. Fixing the parser does not fix this; the hint has to change.
 - **shift.** Not a swap at all: the date moves by one day, and where the reader sits decides which
   day they get ("Client in Lisbon got Tuesday. Client in Toronto got Monday. Same meeting."). The
-  desk noted these as a one-day move, but the cause table counts them under `parser` by tenant. It
-  looks like a date-only value passed through a time zone conversion.
+  desk noted these as a one-day move and files them under `parser` by tenant, so they count there
+  too; they need their own fix. It looks like a date-only value passed through a time zone conversion.
 
 ## How to tell them apart at intake
 
