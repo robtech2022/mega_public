@@ -4,7 +4,7 @@ title: '#4471 · three problems, three tickets'
 owner: robtech2022
 status: proposed
 reviewed: 2026-10-29
-signature: robtech2022
+signature: 'v1.eyJzdWIiOiI1MjYxIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMyNTEyMTUsImV4cCI6MTc5MzMzNzYxNX0.HbPpkuf4h4z92VYYypq6NEqcR4WF8tdsDz4H317-Cbc'
 ---
 
 <script>

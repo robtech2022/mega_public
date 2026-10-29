@@ -39,6 +39,6 @@ Exported 2026-10-04 from the `support` repo, `apps/kb/` → `src/`.
 
 #4471 split into three problems, one GitHub issue each: [#1](https://github.com/robtech2022/mega_public/issues/1) parser (374), [#2](https://github.com/robtech2022/mega_public/issues/2) form hint (33), [#3](https://github.com/robtech2022/mega_public/issues/3) one-day shift (5).
 
-- The page: `src/routes/kb/incidents/4471/split/+page.svx` (signed `robtech2022`).
+- The page: `src/routes/kb/incidents/4471/split/+page.svx` (signed with the course ticket).
 - Its logic: `src/lib/kb/problems.ts`, `src/lib/kb/ProblemTable.svelte`.
 - The page as the desk sees it: `build/kb/incidents/4471/split/index.html` (`npm install && npm run build`).
