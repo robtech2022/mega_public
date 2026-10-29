@@ -4,18 +4,22 @@ import { causeOf, uniqueById, type Report, type Tenant } from '#lib/kb/causes';
 
 export type Problem = 'parser' | 'hint' | 'shift';
 
-export const PROBLEMS: Record<Problem, { name: string; issue: string }> = {
+// State from engineering's update on #4471 (closed 05 Oct 2026). A problem it did not mention is still open.
+export const PROBLEMS: Record<Problem, { name: string; issue: string; state: string }> = {
   parser: {
     name: 'Shared parser reads day-first dates month first',
     issue: 'https://github.com/robtech2022/mega_public/issues/1',
+    state: 'fixed · fix(dates): parse dd/mm for eu locales',
   },
   hint: {
     name: 'booking-v3 form hint says MM/DD/YYYY to day-first tenants',
     issue: 'https://github.com/robtech2022/mega_public/issues/2',
+    state: "won't fix · booking-v3 form retired",
   },
   shift: {
     name: 'Dates move by one day (time zone conversion)',
     issue: 'https://github.com/robtech2022/mega_public/issues/3',
+    state: 'open · not covered by the #4471 fix',
   },
 };
 

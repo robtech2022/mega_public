@@ -25,7 +25,7 @@
 
 <table>
   <thead>
-    <tr><th>problem</th><th>reports</th><th>tenants</th><th>channels</th><th>seen</th><th>ticket</th></tr>
+    <tr><th>problem</th><th>reports</th><th>tenants</th><th>channels</th><th>seen</th><th>ticket</th><th>state</th></tr>
   </thead>
   <tbody>
     {#each split.groups as g (g.problem)}
@@ -37,6 +37,9 @@
         <td class="small">{g.firstSeen} → {g.lastSeen}</td>
         <td>
           {#if g.problem === 'unplaced'}none yet{:else}<a href={PROBLEMS[g.problem].issue}>#{PROBLEMS[g.problem].issue.split('/').pop()}</a>{/if}
+        </td>
+        <td class="small" class:open={g.problem !== 'unplaced' && PROBLEMS[g.problem].state.startsWith('open')}>
+          {g.problem === 'unplaced' ? 'open' : PROBLEMS[g.problem].state}
         </td>
       </tr>
     {/each}
@@ -54,4 +57,5 @@
   .sum { font-size: 1.1rem; }
   .small { color: var(--muted); font-size: 0.85em; }
   .note { color: var(--muted); font-size: 0.85em; }
+  .open { color: var(--warn); font-weight: 600; }
 </style>

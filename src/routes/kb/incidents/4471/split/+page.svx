@@ -19,7 +19,9 @@ subject line says what the reporter saw, not what broke. Read by tenant, channel
 in #4471 are separate problems. Each now has its own ticket.
 
 <Callout kind="warn">
-The queued parser fix closes only the parser problem. The others keep coming in after it ships.
+Engineering closed #4471 on 5 October: the parser is fixed, and the booking-v3 form is retired, so
+its hint won't be fixed. Neither touches the one-day shift. That bug is still open
+(<a href="https://github.com/robtech2022/mega_public/issues/3">#3</a>), and its reports keep coming in.
 </Callout>
 
 ## What #4471 holds
