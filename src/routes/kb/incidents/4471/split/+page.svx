@@ -1,0 +1,57 @@
+---
+layout: runbook
+title: '#4471 · three problems, three tickets'
+owner: robtech2022
+status: proposed
+reviewed: 2026-10-29
+signature: robtech2022
+---
+
+<script>
+  import ProblemTable from '#lib/kb/ProblemTable.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+</script>
+
+[#4471](/kb/incidents/4471) is marked known: one issue, one fix queued. It is not one issue. The desk
+merged its reports by subject line ([decision 0001](/kb/decisions/0001-dedupe-by-subject)), and a
+subject line says what the reporter saw, not what broke. Read by tenant, channel and body, the reports
+in #4471 are three problems. Each now has its own ticket.
+
+<Callout kind="warn">
+The queued parser fix closes only the first problem. The other two keep coming in after it ships.
+</Callout>
+
+## What #4471 holds
+
+<ProblemTable ticket={4471} />
+
+## How the reports split
+
+- **parser.** The shared parser reads every date month first, and every tenant in #4471 writes the
+  day first. The day and month swap: a 7 April reminder goes out on 4 July. Any channel, any tenant.
+- **hint.** The booking-v3 form prints `MM/DD/YYYY` under its date field but reads the day first.
+  People type what the hint tells them, and the date swaps. Only the form channel of booking-v3
+  tenants. Fixing the parser does not fix this; the hint has to change.
+- **shift.** Not a swap at all: the date moves by one day, and where the reader sits decides which
+  day they get ("Client in Lisbon got Tuesday. Client in Toronto got Monday. Same meeting."). The
+  desk noted these as a one-day move, but the cause table counts them under `parser` by tenant. It
+  looks like a date-only value passed through a time zone conversion.
+
+## How to tell them apart at intake
+
+1. Look up the tenant, not the reporter's browser. The intake tag is a guess and disagrees with the
+   tenant on dozens of reports in #4471.
+2. Form channel on a booking-v3 tenant: `hint`.
+3. The two dates in the body are one day apart, not swapped: `shift`.
+4. Anything else from a day-first tenant: `parser`.
+
+Matching on subject is still fine for speed. Before merging into a big ticket, check that the cause
+matches too.
+
+## Lessons
+
+- A subject line is a symptom. Three bugs can share one.
+- A note in the margin ("read as a one-day move") is a ticket nobody opened.
+
+<RenderStamp {signature} />
