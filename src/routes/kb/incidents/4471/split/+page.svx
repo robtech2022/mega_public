@@ -1,6 +1,6 @@
 ---
 layout: runbook
-title: '#4471 · three problems, three tickets'
+title: '#4471 · split by problem'
 owner: robtech2022
 status: proposed
 reviewed: 2026-10-29
@@ -16,10 +16,10 @@ signature: 'v1.eyJzdWIiOiI1MjYxIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpY
 [#4471](/kb/incidents/4471) is marked known: one issue, one fix queued. It is not one issue. The desk
 merged its reports by subject line ([decision 0001](/kb/decisions/0001-dedupe-by-subject)), and a
 subject line says what the reporter saw, not what broke. Read by tenant, channel and body, the reports
-in #4471 are three problems. Each now has its own ticket.
+in #4471 are separate problems. Each now has its own ticket.
 
 <Callout kind="warn">
-The queued parser fix closes only the first problem. The other two keep coming in after it ships.
+The queued parser fix closes only the parser problem. The others keep coming in after it ships.
 </Callout>
 
 ## What #4471 holds
@@ -40,8 +40,8 @@ The queued parser fix closes only the first problem. The other two keep coming i
 
 ## How to tell them apart at intake
 
-1. Look up the tenant, not the reporter's browser. The intake tag is a guess and disagrees with the
-   tenant on dozens of reports in #4471.
+1. Look up the tenant, not the reporter's browser. The intake tag is a guess and often disagrees with
+   the tenant in #4471.
 2. Form channel on a booking-v3 tenant: `hint`.
 3. The two dates in the body are one day apart, not swapped: `shift`.
 4. Anything else from a day-first tenant: `parser`.
@@ -51,7 +51,7 @@ matches too.
 
 ## Lessons
 
-- A subject line is a symptom. Three bugs can share one.
+- A subject line is a symptom. Several bugs can share one.
 - A note in the margin ("read as a one-day move") is a ticket nobody opened.
 
 <RenderStamp {signature} />
